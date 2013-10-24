@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1382576343 source:/home/lucky/workspace/test_TCP/main.cpp
+	<stdio.h>
+	<iostream>
+	<pthread.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/time.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctime>
+	<time.h>
+	<string>
+	<cstring>
+	<unistd.h>
+	<vector>
+	<sstream>
+	<fstream>
+	<poll.h>
+	"server_socket.h"
+
+1382575291 source:/home/lucky/workspace/test_TCP/server_socket.cpp
+	"server_socket.h"
+
+1382575292 /home/lucky/workspace/test_TCP/server_socket.h
+	<iostream>
+	<stdio.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/time.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<stdlib.h>
+	<string>
+
