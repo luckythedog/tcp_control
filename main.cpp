@@ -16,6 +16,7 @@
 #include <cstring>
 #include <unistd.h>
 #include <vector>
+#include <time.h>
 
 #include <sstream>
 #include <fstream>
@@ -87,8 +88,8 @@ void* connectionThread(void*) {
                                 if (poll_sockets[i].revents & POLLIN) {
                                         char buffer[BUFFSIZE];
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
-                                            cout << "Received" << endl;
-                                                unsigned int seed = rand()%50000;
+                                         
+                                                unsigned int seed = srand(time(NULL))%50000;
                                                 char str[5];
                                                 std::string s;
                                                 std::stringstream out;
@@ -96,7 +97,7 @@ void* connectionThread(void*) {
                                                 out << ".txt";
                                                 s = out.str();
                                                 char* filename = &s[0];
-                                                
+                                                   cout << "Received " << filename << endl;
                                               
                                                ofstream new_file(filename);
                                                if(new_file.good()){
