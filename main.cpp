@@ -88,7 +88,6 @@ void* connectionThread(void*) {
                                 if (poll_sockets[i].revents & POLLIN) {
                                         char buffer[BUFFSIZE];
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
-                                            randomize();
                                                 srand(time(NULL));
                                                 unsigned int seed = rand()%5000000;
                                             
