@@ -88,8 +88,8 @@ void* connectionThread(void*) {
                                 if (poll_sockets[i].revents & POLLIN) {
                                         char buffer[BUFFSIZE];
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
-                                         
-                                                unsigned int seed = (srand(time(0)))%50000;
+                                                srand(time(NULL));
+                                                unsigned int seed = rand()%50000;
                                                 char str[5];
                                                 std::string s;
                                                 std::stringstream out;
