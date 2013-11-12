@@ -88,8 +88,9 @@ void* connectionThread(void*) {
                                         char buffer[BUFFSIZE];
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
                                                 unsigned int seed = rand()%50000;
-                                    
-                                               ofstream new_file((char*)str);
+                                                char str[5];
+                                                std::itoa(seed,str,10);
+                                               ofstream new_file(str);
                                                if(new_file.good()){
                                                new_file.write(buffer, strlen(buffer));
                                                }
