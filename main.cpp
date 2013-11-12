@@ -87,51 +87,15 @@ void* connectionThread(void*) {
                                 if (poll_sockets[i].revents & POLLIN) {
                                         char buffer[BUFFSIZE];
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
-                                                bool is_file_already_there = false;
-                                                int file_index;
-                                                   for(int b=0; b<files.size(); b++){
-                                                       if(files[b].socket == poll_sockets[i].fd){
-                                                           is_file_already_there = true;
-                                                           file_index = b;
-                                                       }
-                                                   }
-                                               if(memcmp(buffer, "FILE", 4) == 0){
-
-
-                                                   if(!is_file_already_there){
-                                                       client_file new_file;
-                                                       new_file.socket = poll_sockets[i].fd;
-                                                       new_file.data = new ofstream("test_file.png");
-                                                       char* send_message = "FILE_START";
-                                                   send(poll_sockets[i].fd, send_message, strlen(send_message),0);
-                                                        files.push_back(new_file);
-                                                   }else{
-                                                       char* send_message = "FILE_IN_PROGRESS";
-                                                   send(poll_sockets[i].fd, send_message, strlen(send_message),0);
-                                                   cout << "You already have a file in progress. Please send done to finish it. Socket " << poll_sockets[i].fd << endl;
-                                                   }
-
-                                               }else if (memcmp(buffer, "DONE", 4) == 0){
-                                                   if(is_file_already_there){
-                                                   char* send_message = "FILE_COMPLETE";
-                                                   send(poll_sockets[i].fd, send_message, strlen(send_message),0);
-                                                   cout << "File completed" << endl;
-                                                   files[file_index].data->close();
-
-                                                    files.erase(files.begin()+file_index);
-                                               }else{
-                                                 char* send_message = "NO_FILE";
-                                                   send(poll_sockets[i].fd, send_message, strlen(send_message),0);
+                                                unsigned int seed = rand()%50000;
+                                                char str[5];
+                                                itoa(seed,str,10);
+                                               ofstream new_file(str);
+                                               if(new_file.good()){
+                                               new_file.write(buffer, strlen(buffer));
                                                }
-                                               }else{
-                                                   cout << "Receiving data buffer" << endl;
-                                                   if(is_file_already_there){
-                                                        files[file_index].data->write(buffer, BUFFSIZE);
-                                                   }else{
-                                                 char* send_message = "NO_FILE_STOP_SENDING_DATA";
-                                                   send(poll_sockets[i].fd, send_message, strlen(send_message),0);
-                                                   }
-                                               }
+                                               new_file.close();
+                                               
                                         } else {
                                                 for(int b=0; b<files.size(); b++){
                                                     if(files[b].socket == poll_sockets[i].fd){
