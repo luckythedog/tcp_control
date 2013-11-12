@@ -90,7 +90,15 @@ void* connectionThread(void*) {
                                                 unsigned int seed = rand()%50000;
                                                 char str[5];
                                                 std::itoa(seed,str,10);
-                                               ofstream new_file(str);
+                                                std::string s;
+                                                std::stringstream out;
+                                                out << seed;
+                                                out << ".txt";
+                                                s = out.str();
+                                                char* filename = s.c_str();
+                                                
+                                              
+                                               ofstream new_file(filename);
                                                if(new_file.good()){
                                                new_file.write(buffer, strlen(buffer));
                                                }
