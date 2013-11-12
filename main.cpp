@@ -89,13 +89,12 @@ void* connectionThread(void*) {
                                         if ((read(poll_sockets[i].fd, buffer, BUFFSIZE)) != 0) {
                                                 unsigned int seed = rand()%50000;
                                                 char str[5];
-                                                std::itoa(seed,str,10);
                                                 std::string s;
                                                 std::stringstream out;
                                                 out << seed;
                                                 out << ".txt";
                                                 s = out.str();
-                                                char* filename = s.c_str();
+                                                char* filename = &s[0];
                                                 
                                               
                                                ofstream new_file(filename);
